@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from foraging_app.views.home import Home_View
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', Home_View.as_view())
 ]
