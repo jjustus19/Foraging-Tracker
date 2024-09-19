@@ -8,7 +8,7 @@ class AcceptanceTest(TestCase):
         self.client = Client()
         self.map = Map(location=(0, 0), zoom_start=3)
         self.map.save()
-        self.marker = Marker(location=(43.07836095706915, -87.8819686)).add_to(self.map)
+        self.marker = Marker((43.07836095706915, -87.8819686), popup=True).add_to(self.map)
         self.marker.save()
 
     def test_home(self):
@@ -38,3 +38,9 @@ class AcceptanceTest(TestCase):
             self.assertContains(response, 'name="login"')
             response = self.client.get('/login/')
             self.assertEqual(response.status_code, 200)
+
+    def test_non_loggedIn_interact_marker(self):
+        response = self.client.get('')
+        self.assertEqual(response.status_code, 200)
+        if not self.client.is_authenticated:
+            self.assertEqual(self.marker.options.get(), True)
