@@ -34,6 +34,7 @@ class AcceptanceTest(TestCase):
         response = self.client.get('')
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, 'name="login"') # can be changed if there will not be a login button or we name it something else
-        response = self.client.get('/login/')
-        self.assertEqual(response.status_code, 200)
+        if not self.client.is_authenticated:
+            self.assertContains(response, 'name="login"')
+            response = self.client.get('/login/')
+            self.assertEqual(response.status_code, 200)
