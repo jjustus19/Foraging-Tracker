@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.test import Client
-from folium import (Icon, Marker, Map, Figure)
+from folium import (Marker, Map)
 
 
 class AcceptanceTest(TestCase):
